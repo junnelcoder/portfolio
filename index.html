@@ -668,42 +668,194 @@
         transform: translateY(0);
       }
 
+      /* HAMBURGER */
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 36px;
+        height: 36px;
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 6px;
+        z-index: 200;
+      }
+
+      .nav-toggle span {
+        display: block;
+        width: 100%;
+        height: 1.5px;
+        background: var(--text);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-toggle.open span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
+      }
+      .nav-toggle.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle.open span:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
+      }
+
       @media (max-width: 768px) {
-        #home,
-        .about-grid,
-        .contact-wrap {
-          grid-template-columns: 1fr;
-          gap: 2.5rem;
+        /* NAV */
+        .nav-toggle {
+          display: flex;
         }
-        .hero-image-wrap {
-          order: -1;
+
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 70%;
+          max-width: 280px;
+          height: 100dvh;
+          background: var(--surface);
+          border-left: 1px solid var(--border);
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 0;
+          padding: 5rem 2rem 2rem;
+          transition: right 0.35s ease;
+          z-index: 150;
         }
-        .hero-image-frame {
-          width: 200px;
-          height: 200px;
+
+        .nav-links.open {
+          right: 0;
         }
+
+        .nav-links li {
+          width: 100%;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .nav-links a {
+          font-size: 0.8rem;
+          display: block;
+          padding: 1rem 0;
+          letter-spacing: 0.12em;
+        }
+
+        /* NAV OVERLAY */
+        .nav-overlay {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.6);
+          z-index: 140;
+        }
+        .nav-overlay.open {
+          display: block;
+        }
+
         nav {
           padding: 1rem 1.2rem;
         }
-        .nav-links {
+
+        /* HERO */
+        #home {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          padding: 6rem 1.2rem 3rem;
+          text-align: center;
+        }
+
+        .hero-image-wrap {
+          order: -1;
+        }
+
+        .hero-image-frame {
+          width: 180px;
+          height: 180px;
+        }
+
+        .hero-cta {
+          justify-content: center;
+        }
+
+        .hero-role br {
+          display: none;
+        }
+
+        /* SECTIONS */
+        section {
+          padding: 5rem 1.2rem 2.5rem;
+          min-height: unset;
+        }
+
+        .about-grid,
+        .contact-wrap {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .about-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .section-title {
+          margin-bottom: 2rem;
+        }
+
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-cta {
+          padding: 1.8rem;
+        }
+
+        .exp-item {
           gap: 1rem;
         }
-        .nav-links a {
-          font-size: 0.62rem;
+
+        .exp-content {
+          padding: 1.2rem;
         }
-        section {
-          padding: 6rem 1.2rem 3rem;
+
+        .exp-meta {
+          flex-direction: column;
+          gap: 0.4rem;
         }
-        #home {
-          padding: 6rem 1.2rem 3rem;
+      }
+
+      @media (max-width: 400px) {
+        .hero-image-frame {
+          width: 150px;
+          height: 150px;
+        }
+
+        .hero-name {
+          font-size: 2.2rem;
+        }
+
+        .btn {
+          font-size: 0.68rem;
+          padding: 0.65rem 1.2rem;
+        }
+
+        .about-stats {
+          grid-template-columns: 1fr 1fr;
         }
       }
     </style>
   </head>
   <body>
+    <div class="nav-overlay" id="navOverlay"></div>
     <nav>
       <div class="nav-logo">junnel.dev</div>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -711,6 +863,11 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
 
     <!-- ====== HERO ====== -->
@@ -756,11 +913,6 @@
 
       <div class="hero-image-wrap">
         <div class="hero-image-frame">
-          <!--
-          ==========================================
-          CHANGE "YOUR_PHOTO_HERE.jpg" TO YOUR IMAGE
-          ==========================================
-        -->
           <img
             src="junnel.png"
             alt="Profile Photo"
@@ -1081,6 +1233,29 @@
     </footer>
 
     <script>
+      // Hamburger menu
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navLinks");
+      const navOverlay = document.getElementById("navOverlay");
+
+      function closeMenu() {
+        navToggle.classList.remove("open");
+        navLinks.classList.remove("open");
+        navOverlay.classList.remove("open");
+      }
+
+      navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.classList.toggle("open", isOpen);
+        navOverlay.classList.toggle("open", isOpen);
+      });
+
+      navOverlay.addEventListener("click", closeMenu);
+
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
       // Scroll reveal
       const reveals = document.querySelectorAll(".reveal");
       const observer = new IntersectionObserver(
@@ -1098,7 +1273,7 @@
         ...document.querySelectorAll("section"),
         document.getElementById("home"),
       ];
-      const navLinks = document.querySelectorAll(".nav-links a");
+      const navAnchors = document.querySelectorAll(".nav-links a");
 
       window.addEventListener("scroll", () => {
         let current = "home";
@@ -1106,7 +1281,7 @@
           if (window.scrollY >= s.offsetTop - 140)
             current = s.getAttribute("id");
         });
-        navLinks.forEach((link) => {
+        navAnchors.forEach((link) => {
           link.style.color =
             link.getAttribute("href") === "#" + current ? "var(--accent)" : "";
         });

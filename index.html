@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junnel L. Balasabas | Full Stack Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --surface: #13131a;
+        --border: #1e1e2e;
+        --accent: #7fff6e;
+        --accent2: #6ee4ff;
+        --accent3: #ff6e9c;
+        --text: #e8e8f0;
+        --muted: #6b6b80;
+        --card: #111118;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Mono", monospace;
+        background: var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.4;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        padding: 1.2rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(20px);
+        background: rgba(10, 10, 15, 0.85);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-logo {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: var(--accent);
+        letter-spacing: -0.02em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      /* HERO */
+      #home {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        min-height: 100vh;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 8rem 2rem 4rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 0.3rem 0.8rem;
+        border-radius: 2px;
+        margin-bottom: 1.5rem;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .hero-name {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(2.8rem, 5vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        animation: fadeUp 0.6s 0.1s ease both;
+      }
+
+      .hero-name span {
+        color: var(--accent);
+      }
+
+      .hero-role {
+        font-size: 0.82rem;
+        color: var(--muted);
+        margin: 1.2rem 0 2rem;
+        line-height: 1.9;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+
+      .hero-role strong {
+        color: var(--accent2);
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s 0.3s ease both;
+      }
+
+      .btn {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.75rem 1.5rem;
+        border-radius: 3px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #000;
+        border: none;
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        background: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(127, 255, 110, 0.3);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .btn-ghost:hover {
+        border-color: var(--accent2);
+        color: var(--accent2);
+        transform: translateY(-2px);
+      }
+
+      .hero-image-wrap {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        animation: fadeUp 0.6s 0.15s ease both;
+      }
+
+      .hero-image-wrap::before {
+        content: "";
+        position: absolute;
+        inset: -20px;
+        background: conic-gradient(
+          from 180deg,
+          var(--accent),
+          var(--accent2),
+          var(--accent3),
+          var(--accent)
+        );
+        border-radius: 50%;
+        animation: spin 8s linear infinite;
+        opacity: 0.35;
+        filter: blur(30px);
+      }
+
+      .hero-image-frame {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid var(--accent);
+        box-shadow: 0 0 60px rgba(127, 255, 110, 0.15);
+        background: var(--surface);
+      }
+
+      .hero-image-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .img-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        color: var(--muted);
+        font-size: 0.65rem;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      /* SECTIONS */
+      section {
+        position: relative;
+        z-index: 1;
+        min-height: 80vh;
+        padding: 7rem 2rem 4rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.6rem;
+        display: block;
+      }
+
+      .section-title {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 3rem;
+      }
+
+      /* ABOUT */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      }
+
+      .about-text p {
+        color: var(--muted);
+        line-height: 1.9;
+        font-size: 0.82rem;
+        margin-bottom: 1rem;
+      }
+
+      .about-text p strong {
+        color: var(--text);
+      }
+
+      .about-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+      }
+
+      .stat-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1.4rem;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-family: "Syne", sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--accent);
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 0.62rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 0.2rem;
+        display: block;
+      }
+
+      /* SKILLS */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+
+      .skill-category {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+
+      .skill-category:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+
+      .skill-cat-title {
+        font-family: "Syne", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--accent2);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .skill-tag {
+        font-size: 0.62rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 2px;
+        background: var(--border);
+        color: var(--text);
+        letter-spacing: 0.04em;
+      }
+
+      .skill-tag.g {
+        background: rgba(127, 255, 110, 0.1);
+        color: var(--accent);
+      }
+      .skill-tag.b {
+        background: rgba(110, 228, 255, 0.1);
+        color: var(--accent2);
+      }
+      .skill-tag.p {
+        background: rgba(255, 110, 156, 0.1);
+        color: var(--accent3);
+      }
+
+      /* EXPERIENCE */
+      .exp-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+        position: relative;
+      }
+
+      .exp-item::before {
+        content: "";
+        position: absolute;
+        left: 11px;
+        top: 24px;
+        bottom: -24px;
+        width: 1px;
+        background: var(--border);
+      }
+
+      .exp-item:last-child::before {
+        display: none;
+      }
+
+      .exp-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--accent);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        margin-top: 2px;
+      }
+
+      .exp-dot::after {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .exp-content {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.5rem;
+      }
+
+      .exp-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .exp-role {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+      }
+
+      .exp-period {
+        font-size: 0.62rem;
+        color: var(--accent);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: rgba(127, 255, 110, 0.08);
+        padding: 0.2rem 0.6rem;
+        border-radius: 2px;
+      }
+
+      .exp-company {
+        font-size: 0.72rem;
+        color: var(--accent2);
+        margin-bottom: 0.8rem;
+      }
+
+      .exp-desc {
+        font-size: 0.76rem;
+        color: var(--muted);
+        line-height: 1.85;
+      }
+
+      /* PROJECTS */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+
+      .project-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.8rem;
+        transition: all 0.25s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+
+      .project-card:hover::before {
+        transform: scaleX(1);
+      }
+      .project-card:hover {
+        border-color: rgba(127, 255, 110, 0.3);
+        transform: translateY(-4px);
+      }
+
+      .project-icon {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .project-title {
+        font-family: "Syne", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+      }
+
+      .project-desc {
+        font-size: 0.74rem;
+        color: var(--muted);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+
+      .tech-tag {
+        font-size: 0.58rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 2px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* CONTACT */
+      .contact-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .contact-info p {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.9;
+        margin-bottom: 2rem;
+      }
+
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 0.74rem;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .contact-link:hover {
+        color: var(--accent);
+      }
+
+      .contact-link-icon {
+        width: 30px;
+        height: 30px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+      }
+
+      .contact-cta {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 2.5rem;
+        text-align: center;
+      }
+
+      .contact-cta h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 800;
+        margin-bottom: 0.8rem;
+      }
+
+      .contact-cta p {
+        font-size: 0.74rem;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      footer {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid var(--border);
+        font-size: 0.62rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+      }
+
+      footer span {
+        color: var(--accent);
+      }
+
+      .divider {
+        position: relative;
+        z-index: 1;
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 0;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 768px) {
+        #home,
+        .about-grid,
+        .contact-wrap {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        .hero-image-wrap {
+          order: -1;
+        }
+        .hero-image-frame {
+          width: 200px;
+          height: 200px;
+        }
+        nav {
+          padding: 1rem 1.2rem;
+        }
+        .nav-links {
+          gap: 1rem;
+        }
+        .nav-links a {
+          font-size: 0.62rem;
+        }
+        section {
+          padding: 6rem 1.2rem 3rem;
+        }
+        #home {
+          padding: 6rem 1.2rem 3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">junnel.dev</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- ====== HERO ====== -->
+    <div id="home">
+      <div class="hero-text">
+        <div class="hero-badge">Available for Freelance</div>
+        <p
+          style="
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.05em;
+            animation: fadeUp 0.5s ease both;
+          "
+        >
+          Hi, I'm
+        </p>
+        <h1 class="hero-name">Junnel L.<br /><span>Balasabas</span></h1>
+        <p
+          style="
+            font-family: &quot;Syne&quot;, sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent2);
+            margin-top: 0.4rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.03em;
+            animation: fadeUp 0.6s 0.08s ease both;
+          "
+        >
+          Full Stack Developer
+        </p>
+        <p class="hero-role">
+          2 years of professional experience building<br />
+          <strong>web &amp; mobile applications</strong> — from POS systems<br />
+          to AI-powered development workflows.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-ghost">Hire Me</a>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <div class="hero-image-frame">
+          <!--
+          ==========================================
+          CHANGE "YOUR_PHOTO_HERE.jpg" TO YOUR IMAGE
+          ==========================================
+        -->
+          <img
+            src="junnel.png"
+            alt="Profile Photo"
+            onerror="
+              this.style.display = 'none';
+              document.getElementById('ph').style.display = 'flex';
+            "
+          />
+          <div class="img-placeholder" id="ph">
+            <svg
+              width="50"
+              height="50"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#6b6b80"
+              stroke-width="1.2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span style="color: #6b6b80; font-size: 0.62rem"
+              >Replace src with<br />your photo path</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ====== ABOUT ====== -->
+    <section id="about">
+      <span class="section-label reveal">01 — About Me</span>
+      <h2 class="section-title reveal">Who I Am</h2>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I'm a <strong>Full Stack Developer</strong> with around 2 years of
+            professional experience building business applications and web
+            systems. I worked in a
+            <strong>POS (Point of Sale) company</strong> where I helped develop
+            and maintain software used for retail and business operations.
+          </p>
+          <p>
+            My stack covers
+            <strong>Node.js, React, Flutter, HTML/CSS, and Python</strong> — web
+            to backend to mobile. I've built systems from scratch, integrated
+            APIs, optimized performance, and shipped apps used in real business
+            environments.
+          </p>
+          <p>
+            I use AI tools like Claude and ChatGPT as part of my daily
+            development workflow to move faster, solve problems smarter, and
+            deliver better quality work. If you want someone who builds real
+            software and stays ahead of the tools — that's me.
+          </p>
+        </div>
+
+        <div class="about-stats reveal">
+          <div class="stat-card">
+            <span class="stat-number">2+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">POS</span>
+            <span class="stat-label">Industry Background</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">Web</span>
+            <span class="stat-label">+ Mobile Apps</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">AI</span>
+            <span class="stat-label">Powered Dev</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ====== SKILLS ====== -->
+    <section id="skills">
+      <span class="section-label reveal">02 — Skills</span>
+      <h2 class="section-title reveal">What I Work With</h2>
+
+      <div class="skills-grid">
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">Frontend</div>
+          <div class="skill-tags">
+            <span class="skill-tag g">HTML5</span>
+            <span class="skill-tag g">CSS3</span>
+            <span class="skill-tag g">JavaScript</span>
+            <span class="skill-tag g">React</span>
+            <span class="skill-tag">Responsive Design</span>
+            <span class="skill-tag">Web Performance</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">Backend</div>
+          <div class="skill-tags">
+            <span class="skill-tag b">Node.js</span>
+            <span class="skill-tag b">REST APIs</span>
+            <span class="skill-tag b">Python</span>
+            <span class="skill-tag">Backend Architecture</span>
+            <span class="skill-tag">API Integration</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">Mobile</div>
+          <div class="skill-tags">
+            <span class="skill-tag p">Flutter</span>
+            <span class="skill-tag p">Cross-Platform</span>
+            <span class="skill-tag">Mobile UI</span>
+            <span class="skill-tag">Dart</span>
+          </div>
+        </div>
+
+        <div class="skill-category reveal">
+          <div class="skill-cat-title">Tools &amp; AI</div>
+          <div class="skill-tags">
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag g">Claude AI</span>
+            <span class="skill-tag g">ChatGPT</span>
+            <span class="skill-tag">Gemini</span>
+            <span class="skill-tag">AI-Assisted Dev</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ====== EXPERIENCE ====== -->
+    <section id="experience">
+      <span class="section-label reveal">03 — Experience</span>
+      <h2 class="section-title reveal">Where I've Worked</h2>
+
+      <div class="exp-item reveal">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-meta">
+            <span class="exp-role">Full Stack Developer</span>
+            <span class="exp-period">2022 — Present</span>
+          </div>
+          <div class="exp-company">
+            POS Technology Company · Retail &amp; Business Software
+          </div>
+          <p class="exp-desc">
+            Developed and maintained full stack applications for retail POS
+            operations. Built responsive web interfaces with HTML, CSS, and
+            JavaScript, and implemented backend services and APIs using Node.js.
+            Worked across the full development lifecycle — from frontend UI to
+            server-side logic and system integration. Optimized application
+            performance, improved system reliability, and ensured smooth data
+            flow between platform components used in real business environments.
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-meta">
+            <span class="exp-role">Freelance Developer</span>
+            <span class="exp-period">Ongoing</span>
+          </div>
+          <div class="exp-company">Self-Employed · Remote</div>
+          <p class="exp-desc">
+            Taking on freelance web and mobile development projects on platforms
+            like Freelancer. Building web applications, admin systems, and
+            mobile apps for clients across different industries. Delivering
+            faster and cleaner results using an AI-assisted workflow with Claude
+            and ChatGPT integrated into the development process.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ====== PROJECTS ====== -->
+    <section id="projects">
+      <span class="section-label reveal">04 — Projects</span>
+      <h2 class="section-title reveal">Things I've Built</h2>
+
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <span class="project-icon">🏪</span>
+          <div class="project-title">POS Business Application</div>
+          <p class="project-desc">
+            Full stack POS system for retail operations. Handles transactions,
+            reporting, inventory, and business management with a clean, fast
+            interface.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-icon">📱</span>
+          <div class="project-title">Cross-Platform Mobile App</div>
+          <p class="project-desc">
+            Mobile application built with Flutter for cross-platform deployment.
+            Clean UI, smooth performance, and integrated backend services.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Flutter</span>
+            <span class="tech-tag">Dart</span>
+            <span class="tech-tag">API Integration</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-icon">🌐</span>
+          <div class="project-title">Web Application Development</div>
+          <p class="project-desc">
+            Responsive web apps with React frontend and Node.js backend.
+            Optimized for speed, usability, and mobile performance across
+            devices.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">HTML/CSS</span>
+            <span class="tech-tag">Python</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <span class="project-icon">🤖</span>
+          <div class="project-title">AI-Powered Dev Workflow</div>
+          <p class="project-desc">
+            Automation tools and productivity scripts using AI APIs. Integrated
+            Claude and ChatGPT into development to deliver faster, smarter
+            results.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Claude AI</span>
+            <span class="tech-tag">ChatGPT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ====== CONTACT ====== -->
+    <section id="contact">
+      <span class="section-label reveal">05 — Contact</span>
+      <h2 class="section-title reveal">Let's Work Together</h2>
+
+      <div class="contact-wrap">
+        <div class="contact-info reveal">
+          <p>
+            I'm available for freelance projects, remote roles, and
+            collaborations. Whether you need a web app, mobile app, or backend
+            system — I'm ready to build.
+          </p>
+
+          <div class="contact-links">
+            <a href="mailto:balasabasjunnel0@gmail.com" class="contact-link">
+              <div class="contact-link-icon">✉️</div>
+              balasabasjunnel0@gmail.com
+            </a>
+            <!-- <a
+              href=""
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-link-icon">💼</div>
+              LinkedIn Profile
+            </a> -->
+            <!-- <a
+              href=" "
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-link-icon">🐙</div>
+              GitHub Profile
+            </a> -->
+            <a
+              href="https://www.freelancer.com/u/balasabasjunnel?sb=t"
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-link-icon">🚀</div>
+              Freelancer Profile
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-cta reveal">
+          <h3>Ready to start<br />a project?</h3>
+          <p>
+            Open to web development, mobile apps, API work, and AI-integrated
+            solutions.
+          </p>
+          <a href="mailto:balasabasjunnel0@gmail.com" class="btn btn-primary"
+            >Send Me a Message</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Built by <span>Junnel L. Balasabas</span> · Node.js · React · Flutter ·
+      AI-Powered 🤖
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.08 },
+      );
+      reveals.forEach((el) => observer.observe(el));
+
+      // Active nav highlight
+      const sections = [
+        ...document.querySelectorAll("section"),
+        document.getElementById("home"),
+      ];
+      const navLinks = document.querySelectorAll(".nav-links a");
+
+      window.addEventListener("scroll", () => {
+        let current = "home";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 140)
+            current = s.getAttribute("id");
+        });
+        navLinks.forEach((link) => {
+          link.style.color =
+            link.getAttribute("href") === "#" + current ? "var(--accent)" : "";
+        });
+      });
+    </script>
+  </body>
+</html>
